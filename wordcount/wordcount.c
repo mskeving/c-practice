@@ -6,15 +6,17 @@ int main(int argc, char** argv)
 
     FILE *fp;
     char buffer[4096];
-    int res = 0;
-    int word_count = 0;
-    int line_count = 0;
-
-    printf("\n");
-    printf("program name: \"%s\"\n", argv[0]);
+    int total_words = 0;
+    int total_lines = 0;
+    int total_bytes = 0;
 
     for (int i = 1; i < argc; i++) {
-        printf(" \"%s\"", argv[i]);
+        printf("%s ", argv[i]);
+    }
+    for (int i = 1; i < argc; i++) {
+        int res = 0;
+        int word_count = 0;
+        int line_count = 0;
         fp = fopen(argv[i], "r");
 
         if (fp != NULL)
@@ -22,7 +24,6 @@ int main(int argc, char** argv)
             while (!feof(fp))
             {
                 res = fread(buffer, 1, (sizeof buffer)-1, fp);
-                buffer[res] = 0;
                 for (int i=0; i < res; i++)
                 {
                     if (buffer[i]== ' ')
@@ -37,16 +38,16 @@ int main(int argc, char** argv)
                 }
             }
             fclose(fp);
-            printf("\n");
-            printf("%d \n", line_count);
-            printf("%d \n", word_count);
-            printf("%d \n", res);
+            printf("\n %7d %7d %7d %s", line_count, word_count, res, argv[i]);
+            total_words += word_count;
+            total_lines += line_count;
+            total_bytes += res;
         }
         else
-            printf("File %s not found", argv[1]);
+            printf("\n wc: %s: open: No such file or directory", argv[i]);
     }
     printf("\n");
+    printf("%7d %7d %7d total \n", total_lines, total_words, total_bytes);
 
     return 0;
 }
-
