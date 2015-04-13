@@ -1,11 +1,11 @@
 .PHONY: clean
 
 build/main: build/main.o build/charbuf.o
-	gcc -o $@ $^
+	gcc -g -o $@ $^
 
 build/%.o: %.c
 	@mkdir -p build
-	gcc -std=c11 -c -o $@ -Wall -Wextra $<
+	gcc -g -std=c11 -c -o $@ -Wall -Wextra $<
 
 clean:
 	rm -r build

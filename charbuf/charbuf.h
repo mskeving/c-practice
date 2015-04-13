@@ -4,7 +4,10 @@
 #include <stddef.h>
 
 struct charbuf {
-    // TODO: Declare the fields you need.
+    // TODOO: Declare the fields you need.
+    char *data;
+    size_t length;
+    size_t capacity;
 };
 
 typedef struct charbuf charbuf;  // So users can say "charbuf" instead of "struct charbuf".

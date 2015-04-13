@@ -13,7 +13,9 @@ int main(int argc, __attribute__((unused)) const char** argv)
     charbuf buf;
     charbuf_init(&buf);
     charbuf_append(&buf, "Hello");
-    charbuf_append(&buf, ", world!");
+    charbuf_append(&buf, ", world! lots of junk words that are junk.");
+
+    charbuf_truncate(&buf, 13);
 
     char* r = charbuf_make_cstring(&buf);
     printf("Result: \"%s\"\n", r);
