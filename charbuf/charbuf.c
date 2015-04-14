@@ -56,13 +56,14 @@ void charbuf_truncate(charbuf* buf, size_t new_length)
 {
     // TODOO: Return the length of the string in 'buf'.  This might be less than the actual
     // allocated capacity of 'buf'.
-    if (new_length > buf->capacity) {
+    if (new_length > buf->length) {
         fprintf(stderr, "Error truncating: buf is already smaller than size %lu.\n", new_length);
         abort();
     }
-    buf->data = realloc(buf->data, new_length);
+    if (new_length * 4 < buf->capacity) {
+        buf->data = realloc(buf->data, new_length);
+    }
     buf->length = new_length;
-    buf->capacity = new_length;
 }
 
 char* charbuf_make_cstring(const charbuf* buf)
