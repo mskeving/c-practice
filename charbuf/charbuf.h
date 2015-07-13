@@ -8,6 +8,8 @@ struct charbuf {
     char *data;
     size_t length;
     size_t capacity;
+    size_t start;
+    size_t end;
 };
 
 typedef struct charbuf charbuf;  // So users can say "charbuf" instead of "struct charbuf".
@@ -20,6 +22,6 @@ void charbuf_prepend(charbuf*, const char*);
 size_t charbuf_length(const charbuf*);
 void charbuf_truncate(charbuf*, size_t new_length);
 char* charbuf_make_cstring(const charbuf*);
-char* charbuf_make_cstring_of_length(const charbuf*, size_t c_length);
+char* charbuf_make_cstring_of_length(const charbuf*, size_t offset, size_t length);
 
 #endif
